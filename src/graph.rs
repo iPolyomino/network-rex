@@ -2,6 +2,7 @@ use std::fmt::{Display, Formatter};
 
 pub struct Graph {
     pub name: String,
+    pub nodes: Vec<u32>,
 }
 
 impl Display for Graph {
