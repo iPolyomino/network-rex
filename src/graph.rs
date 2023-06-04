@@ -8,7 +8,7 @@ pub struct Graph {
 
 impl Display for Graph {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        writeln!(
+        write!(
             f,
             "Graph with {} nodes and {} edges",
             self.nodes.len(),
@@ -24,5 +24,24 @@ impl Graph {
             .filter(|&&(x, y)| x == edge || y == edge)
             .copied()
             .collect()
+    }
+
+    pub fn has_node(&self, node: &u32) -> bool {
+        self.nodes.contains(node)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn has_node() {
+        let g = Graph {
+            name: String::from("sample"),
+            nodes: vec![1, 2, 3],
+            edges: vec![],
+        };
+        assert_eq!(g.has_node(&1), true);
     }
 }
