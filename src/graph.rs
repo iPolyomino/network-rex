@@ -36,6 +36,18 @@ mod tests {
     use super::*;
 
     #[test]
+    fn edge_list() {
+        let g = Graph {
+            name: String::from("sample"),
+            nodes: vec![1, 2, 3],
+            edges: vec![(1, 2), (2, 3)],
+        };
+        assert_eq!(g.edges_list(1), vec![(1, 2)]);
+        assert_eq!(g.edges_list(2), vec![(1, 2), (2, 3)]);
+        assert_eq!(g.edges_list(3), vec![(2, 3)]);
+    }
+
+    #[test]
     fn has_node() {
         let g = Graph {
             name: String::from("sample"),
