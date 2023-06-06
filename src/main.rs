@@ -1,4 +1,8 @@
+mod algorithms;
+
 mod graph;
+
+use crate::algorithms::clustering_coefficient::gnp_random_graph;
 
 fn main() {
     let g = graph::Graph {
@@ -9,4 +13,7 @@ fn main() {
     println!("{}", g);
     println!("{:?}", g.edges_list(2));
     println!("graph contains node {}: {}", 3, g.has_node(&3));
+
+    let random_graph = gnp_random_graph(5, 0.5);
+    println!("{}", random_graph);
 }
