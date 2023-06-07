@@ -1,6 +1,7 @@
 use itertools::Itertools;
 use rand::random;
 
+use crate::algorithms::classic::complete_graph;
 use crate::graph::Graph;
 
 pub fn gnp_random_graph(n: u32, p: f32) -> Graph {
@@ -14,7 +15,7 @@ pub fn gnp_random_graph(n: u32, p: f32) -> Graph {
         return graph;
     }
     if p >= 1.0 {
-        // TODO: complete_graph
+        return complete_graph(n);
     }
 
     let edges: Vec<(u32, u32)> = (0..n)
