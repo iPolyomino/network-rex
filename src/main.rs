@@ -1,8 +1,8 @@
-mod algorithms;
+mod generators;
 
 mod graph;
 
-use crate::algorithms::clustering_coefficient::gnp_random_graph;
+use crate::generators::random_graphs::gnp_random_graph;
 
 fn main() {
     let g = graph::Graph {

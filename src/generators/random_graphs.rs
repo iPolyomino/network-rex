@@ -1,7 +1,7 @@
 use itertools::Itertools;
 use rand::random;
 
-use crate::algorithms::classic::complete_graph;
+use crate::generators::classic::complete_graph;
 use crate::graph::Graph;
 
 pub fn gnp_random_graph(n: u32, p: f32) -> Graph {
