@@ -12,7 +12,7 @@ pub fn complete_graph(n: u32) -> Graph {
     return Graph {
         name: String::from("complete graph"),
         nodes: (0..n).collect(),
-        edges: edges,
+        edges,
     };
 }
 

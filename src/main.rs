@@ -16,8 +16,8 @@ fn main() {
     println!("graph contains node {}: {}", 3, g.has_node(&3));
 
     let random_graph = gnp_random_graph(5, 0.5);
-    println!("{}", random_graph);
+    println!("random graph: {}", random_graph);
 
     let rrg = random_regular_graph(3, 6).unwrap();
-    println!("{}", rrg);
+    println!("random regular graph edges: {:?}", rrg.edges);
 }

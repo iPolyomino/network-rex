@@ -27,10 +27,7 @@ pub fn gnp_random_graph(n: u32, p: f32) -> Graph {
         .filter(|_vec| random::<f32>() < p)
         .collect();
 
-    return Graph {
-        edges: edges,
-        ..graph
-    };
+    return Graph { edges, ..graph };
 }
 
 pub fn random_regular_graph(d: u32, n: u32) -> Result<Graph, NetworkRexError> {
