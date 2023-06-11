@@ -123,3 +123,15 @@ pub fn random_regular_graph(d: u32, n: u32) -> Result<Graph, NetworkRexError> {
 
     return Ok(g);
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_random_regular_graph() {
+        let rrg_zero_d = random_regular_graph(0, 5).unwrap();
+        assert_eq!(rrg_zero_d.edges.len(), 0);
+        assert_eq!(rrg_zero_d.nodes, vec![0, 1, 2, 3, 4]);
+    }
+}
