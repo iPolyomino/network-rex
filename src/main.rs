@@ -1,8 +1,9 @@
 mod generators;
 
+mod exception;
 mod graph;
 
-use crate::generators::random_graphs::gnp_random_graph;
+use crate::generators::random_graphs::{gnp_random_graph, random_regular_graph};
 
 fn main() {
     let g = graph::Graph {
@@ -16,4 +17,7 @@ fn main() {
 
     let random_graph = gnp_random_graph(5, 0.5);
     println!("{}", random_graph);
+
+    let rrg = random_regular_graph(3, 6).unwrap();
+    println!("{}", rrg);
 }
