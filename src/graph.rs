@@ -1,5 +1,6 @@
 use std::fmt::{Display, Formatter};
 
+#[derive(Debug, PartialEq)]
 pub struct Graph {
     pub name: String,
     pub nodes: Vec<u32>,

@@ -130,8 +130,33 @@ mod tests {
 
     #[test]
     fn test_random_regular_graph() {
-        let rrg_zero_d = random_regular_graph(0, 5).unwrap();
-        assert_eq!(rrg_zero_d.edges.len(), 0);
-        assert_eq!(rrg_zero_d.nodes, vec![0, 1, 2, 3, 4]);
+        // Valid parameters
+        let result = random_regular_graph(2, 4);
+        let expected_graph = Graph {
+            name: String::from("random graph"),
+            nodes: vec![0, 1, 2, 3],
+            edges: vec![(0, 1), (0, 2), (1, 3), (2, 3)],
+        };
+        assert!(result.is_ok());
+        let graph = result.unwrap();
+        assert_eq!(graph.name, expected_graph.name);
+        assert_eq!(graph.nodes, expected_graph.nodes);
+        assert_eq!(graph.edges.len(), expected_graph.edges.len());
+
+        let zero_d = random_regular_graph(0, 5).unwrap();
+        assert_eq!(zero_d.edges.len(), 0);
+        assert_eq!(zero_d.nodes, vec![0, 1, 2, 3, 4]);
+
+        let odd_parameter = random_regular_graph(3, 5);
+        let expected_odd_parameter_err = Err(NetworkRexError {
+            message: String::from("n * d must be even"),
+        });
+        assert_eq!(odd_parameter, expected_odd_parameter_err);
+
+        let large_d = random_regular_graph(5, 4);
+        let expected_large_d_err = Err(NetworkRexError {
+            message: String::from("the 0 <= d < n inequality must be satisfied"),
+        });
+        assert_eq!(large_d, expected_large_d_err);
     }
 }

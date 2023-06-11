@@ -1,6 +1,6 @@
 use std::{error::Error, fmt};
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct NetworkRexError {
     pub message: String,
 }
