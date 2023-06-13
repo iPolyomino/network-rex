@@ -19,6 +19,14 @@ impl Display for Graph {
 }
 
 impl Graph {
+    pub fn new() -> Self {
+        Graph {
+            name: String::from(""),
+            nodes: Vec::new(),
+            edges: Vec::new(),
+        }
+    }
+
     pub fn edges_list(&self, edge: u32) -> Vec<(u32, u32)> {
         self.edges
             .iter()
@@ -29,6 +37,21 @@ impl Graph {
 
     pub fn has_node(&self, node: &u32) -> bool {
         self.nodes.contains(node)
+    }
+
+    pub fn add_node(&mut self, node: u32) {
+        self.nodes.push(node);
+    }
+
+    pub fn add_edge(&mut self, source: u32, target: u32) {
+        self.edges.push((source, target));
+    }
+
+    pub fn degree(&self) -> Vec<(u32, usize)> {
+        self.nodes
+            .iter()
+            .map(|&n| (n, self.edges_list(n).len()))
+            .collect()
     }
 }
 

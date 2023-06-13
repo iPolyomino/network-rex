@@ -5,7 +5,7 @@ use std::collections::{HashMap, HashSet};
 use std::iter::repeat;
 
 use crate::exception::NetworkRexError;
-use crate::generators::classic::{complete_graph, empty_graph};
+use crate::generators::classic::{complete_graph, empty_graph, star_graph};
 use crate::graph::Graph;
 
 pub fn gnp_random_graph(n: u32, p: f32) -> Graph {
@@ -122,6 +122,51 @@ pub fn random_regular_graph(d: u32, n: u32) -> Result<Graph, NetworkRexError> {
     };
 
     return Ok(g);
+}
+
+fn random_subset(seq: &Vec<u32>, m: u32) -> HashSet<u32> {
+    let mut targets = HashSet::new();
+    let mut rng = rand::thread_rng();
+    while targets.len() < m as usize {
+        if let Some(&x) = seq.choose(&mut rng) {
+            targets.insert(x);
+        }
+    }
+    targets
+}
+
+pub fn barabasi_albert_graph(n: u32, m: u32) -> Result<Graph, NetworkRexError> {
+    if m < 1 || m >= n {
+        return Err(NetworkRexError {
+            message: format!(
+                "Barabási–Albert network must have m >= 1 and m < n, m = {}, n = {}",
+                m, n
+            ),
+        });
+    }
+    let mut graph = star_graph(m);
+    let mut repeated_nodes: Vec<u32> = graph
+        .degree()
+        .into_iter()
+        .flat_map(|(n, d)| repeat(n).take(d))
+        .collect();
+
+    let mut source = graph.nodes.len() as u32;
+    while source < n {
+        let targets = random_subset(&repeated_nodes, m);
+
+        graph.add_node(source);
+        targets
+            .iter()
+            .for_each(|&target| graph.add_edge(source, target));
+
+        repeated_nodes.extend(targets);
+        repeated_nodes.extend(repeat(source).take(m as usize));
+
+        source += 1;
+    }
+
+    Ok(graph)
 }
 
 #[cfg(test)]

@@ -25,6 +25,18 @@ pub fn empty_graph(n: u32) -> Graph {
     }
 }
 
+pub fn star_graph(n: u32) -> Graph {
+    if n == 0 {
+        return empty_graph(n);
+    }
+
+    Graph {
+        name: String::from("star graph"),
+        nodes: (0..=n).collect(),
+        edges: (1..=n).map(|x| (0, x)).collect(),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
