@@ -46,12 +46,31 @@ mod tests {
         let cg = complete_graph(5);
         assert_eq!(cg.nodes.len(), 5);
         assert_eq!(cg.edges.len(), 10);
+
+        let eg = complete_graph(0);
+        assert_eq!(eg.nodes.len(), 0);
+        assert_eq!(eg.edges.len(), 0);
     }
 
     #[test]
     fn test_empty_graph() {
         let eg = empty_graph(7);
         assert_eq!(eg.nodes.len(), 7);
+        assert_eq!(eg.edges.len(), 0);
+    }
+
+    #[test]
+    fn test_star_graph() {
+        let sg = star_graph(5);
+        assert_eq!(sg.nodes.len(), 6);
+        assert_eq!(sg.edges.len(), 5);
+        let contain_zero = sg.edges_list(0).len();
+        assert_eq!(contain_zero, 5);
+        let other_edge_degree = sg.edges_list(1).len();
+        assert_eq!(other_edge_degree, 1);
+
+        let eg = star_graph(0);
+        assert_eq!(eg.nodes.len(), 0);
         assert_eq!(eg.edges.len(), 0);
     }
 }
