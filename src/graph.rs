@@ -44,6 +44,12 @@ impl Graph {
     }
 
     pub fn add_edge(&mut self, source: u32, target: u32) {
+        if !self.nodes.contains(&source) {
+            self.add_node(source);
+        }
+        if !self.nodes.contains(&target) {
+            self.add_node(target);
+        }
         self.edges.push((source, target));
     }
 
@@ -79,5 +85,14 @@ mod tests {
             edges: vec![],
         };
         assert_eq!(g.has_node(&1), true);
+    }
+
+    #[test]
+    fn add_edge() {
+        let mut g = Graph::new();
+        g.add_edge(1, 2);
+
+        assert_eq!(g.edges, vec![(1, 2)]);
+        assert_eq!(g.nodes, vec![1, 2]);
     }
 }
