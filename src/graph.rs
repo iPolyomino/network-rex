@@ -43,6 +43,12 @@ impl Graph {
         self.nodes.push(node);
     }
 
+    pub fn add_nodes_from(&mut self, nodes_for_adding: Vec<u32>) {
+        for n in nodes_for_adding {
+            self.add_node(n);
+        }
+    }
+
     pub fn add_edge(&mut self, source: u32, target: u32) {
         if !self.nodes.contains(&source) {
             self.add_node(source);
@@ -51,6 +57,12 @@ impl Graph {
             self.add_node(target);
         }
         self.edges.push((source, target));
+    }
+
+    pub fn add_edges_from(&mut self, ebunch_to_add: Vec<(u32, u32)>) {
+        for (u, v) in ebunch_to_add {
+            self.add_edge(u, v);
+        }
     }
 
     pub fn degree(&self) -> Vec<(u32, usize)> {
@@ -94,5 +106,16 @@ mod tests {
 
         assert_eq!(g.edges, vec![(1, 2)]);
         assert_eq!(g.nodes, vec![1, 2]);
+    }
+
+    #[test]
+    fn add_edges_from() {
+        let nodes = vec![0, 1, 2, 3, 4];
+        let edges = vec![(1, 2), (2, 3), (1, 4)];
+        let mut g = Graph::new();
+        g.add_nodes_from(nodes.clone());
+        g.add_edges_from(edges);
+
+        assert_eq!(g.nodes, nodes);
     }
 }
